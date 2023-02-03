@@ -3,7 +3,7 @@ package puller
 import (
 	"math"
 
-	"github.com/zelenin/go-tdlib/client"
+	"github.com/TimVladislav/gotdlib/client"
 )
 
 func Chats(tdlibClient *client.Client) (chan *client.Chat, chan error) {
@@ -27,9 +27,7 @@ func chats(tdlibClient *client.Client, chatChan chan *client.Chat, errChan chan 
 
 	for {
 		chats, err := tdlibClient.GetChats(&client.GetChatsRequest{
-			OffsetOrder:  offsetOrder,
-			OffsetChatId: offsetChatId,
-			Limit:        limit,
+			Limit: limit,
 		})
 		if err != nil {
 			errChan <- err
@@ -53,7 +51,6 @@ func chats(tdlibClient *client.Client, chatChan chan *client.Chat, errChan chan 
 				return
 			}
 
-			offsetOrder = chat.Order
 			offsetChatId = chat.Id
 
 			chatChan <- chat
