@@ -65,11 +65,6 @@ func NewClient(options ...Option) (*Client, error) {
 	return client, nil
 }
 
-func (client *Client) Authorize(authorizationStateHandler AuthorizationStateHandler) error {
-	err := Authorize(client, authorizationStateHandler)
-	return err
-}
-
 func (client *Client) receiver() {
 	for response := range client.responses {
 		if response.Extra != "" {
