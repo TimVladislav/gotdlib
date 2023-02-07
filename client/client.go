@@ -43,7 +43,7 @@ func WithLogVerbosity(req *SetLogVerbosityLevelRequest) Option {
 	}
 }
 
-func NewClient(authorizationStateHandler AuthorizationStateHandler, options ...Option) (*Client, error) {
+func NewClient(options ...Option) (*Client, error) {
 	client := &Client{
 		jsonClient:    NewJsonClient(),
 		responses:     make(chan *Response, 1000),
@@ -61,11 +61,6 @@ func NewClient(authorizationStateHandler AuthorizationStateHandler, options ...O
 	tdlibInstance.addClient(client)
 
 	go client.receiver()
-
-	err := Authorize(client, authorizationStateHandler)
-	if err != nil {
-		return nil, err
-	}
 
 	return client, nil
 }
