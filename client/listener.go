@@ -64,3 +64,7 @@ func (listener *Listener) IsActive() bool {
 
 	return listener.isActive
 }
+
+func (listener *Listener) GetUpdates() chan Type {
+	return listener.Updates
+}
